@@ -175,8 +175,8 @@ async function exportResults(newFilter) {
   console.log(newFilter);
 }
 
-// TODO locales for schema properties and scopes
-// export components from main js file as library
+// TODO export dist files and update main file in package.json
+// publish on npm and retrieve from npm not from locale.
 
 </script>
 
@@ -186,6 +186,7 @@ async function exportResults(newFilter) {
       <button @click="() => locale = 'fr'" class="qkit-btn qkit-btn-primary"> fr </button>
       <button @click="() => locale = 'en'" class="qkit-btn qkit-btn-primary"> en </button>
       <button @click="() => locale = 'es'" class="qkit-btn qkit-btn-primary"> es </button>
+      <button @click="() => locale = 'de'" class="qkit-btn qkit-btn-primary"> de </button>
     </div>
     <Search 
       :model="model" 

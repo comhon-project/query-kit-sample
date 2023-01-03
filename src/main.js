@@ -4,10 +4,11 @@ import App from "./App.vue";
 import '@query-kit/themes/default'
 
 import { plugin } from '@query-kit/vue'
-import SchemaLoader from "./core/SchemaLoader";
+import { schemaLoader, schemaLocaleLoader } from "./core/SchemaLoader";
 
 createApp(App).use(plugin, {
-    schemaLoader: SchemaLoader,
+    schemaLoader: schemaLoader,
+    schemaLocaleLoader: schemaLocaleLoader,
     classes: {
         
     },
@@ -20,7 +21,7 @@ createApp(App).use(plugin, {
         add_value: 'qkit-icon qkit-icon-plus',
         close: 'qkit-icon qkit-icon-cross'
     },
-    defaultLocale: 'fr',
+    defaultLocale: 'en',
     fallbackLocale: 'fr',
     requester: {
         request: (query) => {
