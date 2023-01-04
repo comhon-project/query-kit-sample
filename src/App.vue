@@ -15,13 +15,21 @@ const columns = ref([
     component: CellFirstName
   },
   'last_name',
+  'gender',
+  'married',
+  'birth_date',
+  'birth_day',
+  'birth_hour',
   {
-    id: 'company.brand_name',
+    id: 'company.description',
     onCellClick: (object, property, event) => {
       event.stopPropagation();
       console.log('cell click', property);
       console.log(object);
-    },
+    }
+  },
+  {
+    id: 'company.brand_name',
     order: 'desc'
   },
   'company.address'
@@ -165,7 +173,7 @@ function printRow(object) {
 
 async function completeCollection(collection) {  
   for (const row of collection) {
-    row['company.brand_name'] += ' <span style="color: blue">lalala</span>';
+    row['company.description'] += ' <span style="color: blue">lalala</span>';
     row['first_name'] += ' hehe';
   }
 }

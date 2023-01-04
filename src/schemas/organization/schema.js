@@ -13,6 +13,11 @@ export default {
         type: 'string',
     },
     {
+        id: 'description',
+        name: 'the description',
+        type: 'html',
+    },
+    {
         id: 'contacts',
         name: 'the contacts',
         type: 'relationship',
@@ -20,7 +25,7 @@ export default {
     },
     ],
     search: {
-        filters: ['address', 'brand_name', 'contacts'],
+        filters: ['address', 'brand_name', 'contacts', 'description'],
         sort: ['brand_name'],
     }
 }

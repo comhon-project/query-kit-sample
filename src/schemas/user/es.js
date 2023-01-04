@@ -5,7 +5,7 @@ export default {
 
     __enumerations__: {
         gender: {
-            male: 'señor.',
+            male: 'señor',
         }
     }
 }
