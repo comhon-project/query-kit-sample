@@ -8,6 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "@query-kit/themes": "file:../query-kit/packages/themes",
     "@query-kit/vue": "file:../query-kit/packages/vue",
     "vue": "^3.2.45"

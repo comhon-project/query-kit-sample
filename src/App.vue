@@ -184,6 +184,9 @@ async function exportResults(newFilter) {
 }
 
 // TODO export dist files and update main file in package.json
+// add tests
+// manage property name with dot in collection
+// add possibility yo customize collection columns
 // publish on npm and retrieve from npm not from locale.
 
 </script>

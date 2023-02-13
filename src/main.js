@@ -1,12 +1,17 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPlus, faXmark, faRotateLeft, faBackward, faForward } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import '@query-kit/themes/default'
 
 import { plugin } from '@query-kit/vue'
 import { schemaLoader, schemaLocaleLoader } from "./core/SchemaLoader";
 
-createApp(App).use(plugin, {
+library.add([faPlus, faXmark, faRotateLeft, faBackward, faForward]);
+
+createApp(App).component('Icon', FontAwesomeIcon).use(plugin, {
     schemaLoader: schemaLoader,
     schemaLocaleLoader: schemaLocaleLoader,
     classes: {
@@ -16,11 +21,15 @@ createApp(App).use(plugin, {
         choice: {component: 'number', unique: true}
     },
     icons: {
-        delete: 'qkit-icon qkit-icon-cross',
-        add: 'qkit-icon qkit-icon-plus',
-        add_value: 'qkit-icon qkit-icon-plus',
-        close: 'qkit-icon qkit-icon-cross'
+        close: {class: 'qkit-icon qkit-icon-cross', component: 'i'},
+        delete: {class: 'qkit-icon qkit-icon-cross', component: 'i'},
+        add_value: {icon: 'fa-solid fa-plus', fade: '' },
+        reset: 'fa-solid fa-rotate-left',
+        previous: 'fa-solid fa-backward',
+        next: 'fa-solid fa-forward',
     },
+    iconComponent: 'Icon',
+    iconPropName: 'icon',
     defaultLocale: 'en',
     fallbackLocale: 'fr',
     renderHtml: true,
