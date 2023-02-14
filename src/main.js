@@ -1,78 +1,88 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlus, faXmark, faRotateLeft, faBackward, faForward } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faPlus,
+  faXmark,
+  faRotateLeft,
+  faBackward,
+  faForward,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import '@query-kit/themes/default'
+import "@query-kit/themes/default";
 
-import { plugin } from '@query-kit/vue'
+import { plugin } from "@query-kit/vue";
 import { schemaLoader, schemaLocaleLoader } from "./core/SchemaLoader";
 
 library.add([faPlus, faXmark, faRotateLeft, faBackward, faForward]);
 
-createApp(App).component('Icon', FontAwesomeIcon).use(plugin, {
+createApp(App)
+  .component("Icon", FontAwesomeIcon)
+  .use(plugin, {
     schemaLoader: schemaLoader,
     schemaLocaleLoader: schemaLocaleLoader,
-    classes: {
-        
-    },
+    classes: {},
     inputs: {
-        choice: {component: 'number', unique: true}
+      choice: { component: "number", unique: true },
     },
     icons: {
-        close: {class: 'qkit-icon qkit-icon-cross', component: 'i'},
-        delete: {class: 'qkit-icon qkit-icon-cross', component: 'i'},
-        add_value: {icon: 'fa-solid fa-plus', fade: '' },
-        reset: 'fa-solid fa-rotate-left',
-        previous: 'fa-solid fa-backward',
-        next: 'fa-solid fa-forward',
+      close: { class: "qkit-icon qkit-icon-cross", component: "i" },
+      delete: { class: "qkit-icon qkit-icon-cross", component: "i" },
+      add_value: { icon: "fa-solid fa-plus", fade: "" },
+      reset: "fa-solid fa-rotate-left",
+      previous: "fa-solid fa-backward",
+      next: "fa-solid fa-forward",
     },
-    iconComponent: 'Icon',
-    iconPropName: 'icon',
-    defaultLocale: 'en',
-    fallbackLocale: 'fr',
+    iconComponent: "Icon",
+    iconPropName: "icon",
+    defaultLocale: "en",
+    fallbackLocale: "fr",
     renderHtml: true,
     requester: {
-        request: (query) => {
-            const lastCompleteBulk = 3;
-            const limit = query.offset > lastCompleteBulk * query.limit ? query.limit - 1 : query.limit;
-            const collection = [];
-            for (let index = 0; index < limit; index++) {
-                const element = {};
-                for (const name of query.properties) {
-                    switch (name) {
-                        case 'birth_date':
-                            element[name] = '2023-01-03T20:45:04Z';
-                            break;
-                        case 'birth_day':
-                            element[name] = '2023-01-03';
-                            break;
-                        case 'birth_hour':
-                            element[name] = '20:45:04';
-                            break;
-                        case 'gender':
-                            element[name] = Math.random() > 0.5 ? 'male' : 'female';
-                            break;
-                        case 'married':
-                            element[name] = Math.random() > 0.5 ? true : false;
-                            break;
-                        default:
-                            element[name] = Math.random().toString(36);
-                            break;
-                    }
-                    
-                }
-                collection.push(element);
+      request: (query) => {
+        console.log(query);
+        const lastCompleteBulk = 3;
+        const limit =
+          query.offset > lastCompleteBulk * query.limit
+            ? query.limit - 1
+            : query.limit;
+        const collection = [];
+        for (let index = 0; index < limit; index++) {
+          const element = {};
+          for (const name of query.properties) {
+            switch (name) {
+              case "birth.birth_date":
+                element[name] = "2023-01-03T20:45:04Z";
+                break;
+              case "birth.birth_day":
+                element[name] = "2023-01-03";
+                break;
+              case "birth.birth_hour":
+                element[name] = "20:45:04";
+                break;
+              case "gender":
+                element[name] = Math.random() > 0.5 ? "male" : "female";
+                break;
+              case "married":
+                element[name] = Math.random() > 0.5 ? true : false;
+                break;
+              default:
+                element[name] = Math.random().toString(36);
+                break;
             }
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        count: lastCompleteBulk * query.limit + (query.limit - 1),
-                        collection: collection
-                    });
-                }, 1000);
-            });
+          }
+          collection.push(element);
         }
-    }
-}).mount("#app");
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve({
+              count: lastCompleteBulk * query.limit + (query.limit - 1),
+              collection: collection,
+            });
+          }, 1000);
+        });
+      },
+    },
+  })
+  .mount("#app");
