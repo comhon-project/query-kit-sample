@@ -7,6 +7,8 @@ import {
   faRotateLeft,
   faBackward,
   faForward,
+  faArrowDown,
+  faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -15,7 +17,14 @@ import "@query-kit/themes/default";
 import { plugin } from "@query-kit/vue";
 import { schemaLoader, schemaLocaleLoader } from "./core/SchemaLoader";
 
-library.add([faPlus, faXmark, faRotateLeft, faBackward, faForward]);
+library.add([
+  faPlus,
+  faXmark,
+  faRotateLeft,
+  faBackward,
+  faForward,
+  faChevronDown,
+]);
 
 createApp(App)
   .component("Icon", FontAwesomeIcon)
@@ -30,6 +39,8 @@ createApp(App)
       close: { class: "qkit-icon qkit-icon-cross", component: "i" },
       delete: { class: "qkit-icon qkit-icon-cross", component: "i" },
       add_value: { icon: "fa-solid fa-plus", fade: "" },
+      add_filter: { icon: "fa-solid fa-plus" },
+      collapse: "fa-solid fa-chevron-down",
       reset: "fa-solid fa-rotate-left",
       previous: "fa-solid fa-backward",
       next: "fa-solid fa-forward",
@@ -41,6 +52,7 @@ createApp(App)
     renderHtml: true,
     requester: {
       request: (query) => {
+        console.log("main-requester");
         console.log(query);
         const lastCompleteBulk = 3;
         const limit =
