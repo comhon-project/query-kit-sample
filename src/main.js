@@ -16,6 +16,8 @@ import "@query-kit/themes/default";
 
 import { plugin } from "@query-kit/vue";
 import { schemaLoader, schemaLocaleLoader } from "./core/SchemaLoader";
+import CellInteger from "./components/CellInteger.vue";
+import CellDate from "./components/CellDate.vue";
 
 library.add([
   faPlus,
@@ -34,6 +36,9 @@ createApp(App)
     classes: {},
     inputs: {
       choice: { component: "number", unique: true },
+    },
+    cellRenderers: {
+      integer: CellInteger,
     },
     icons: {
       close: { class: "qkit-icon qkit-icon-cross", component: "i" },

@@ -15,6 +15,7 @@ const columns = ref([
     component: CellFirstName,
   },
   "last_name",
+  "age",
   "gender",
   "married",
   "birth.birth_date",
@@ -231,6 +232,9 @@ let requester = {
           case "married":
             element[name] = Math.random() > 0.5 ? true : false;
             break;
+          case "age":
+            element[name] = Math.floor(Math.random() * 100);
+            break;
           default:
             element[name] = name + Math.random().toString(36);
             break;
@@ -309,7 +313,8 @@ let requester = {
           user: [
             {
               id: 'quick_search',
-              name: 'quick search user',
+              translation: (localeValue) =>
+                localeValue == 'fr' ? 'recherche rapide' : 'quick search user',
               type: 'string',
               useOperator: true,
               computed: computeQuickSearch,
