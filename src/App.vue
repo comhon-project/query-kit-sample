@@ -20,6 +20,11 @@ const columns = ref([
   "birth.birth_date",
   "birth.birth_day",
   "birth.birth_hour",
+  "friend",
+  {
+    id: "company",
+    order: "desc",
+  },
   {
     id: "company.description",
     onCellClick: (object, property, event) => {
@@ -27,10 +32,6 @@ const columns = ref([
       console.log("cell click", property);
       console.log(object);
     },
-  },
-  {
-    id: "company.brand_name",
-    order: "desc",
   },
   "company.address",
 ]);
@@ -231,7 +232,7 @@ let requester = {
             element[name] = Math.random() > 0.5 ? true : false;
             break;
           default:
-            element[name] = Math.random().toString(36);
+            element[name] = name + Math.random().toString(36);
             break;
         }
       }

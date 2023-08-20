@@ -2,6 +2,11 @@ export default {
   name: "user",
   properties: [
     {
+      id: "id",
+      name: "identifier",
+      type: "string",
+    },
+    {
       id: "first_name",
       name: "first name",
       type: "string",
@@ -59,15 +64,19 @@ export default {
       id: "company",
       name: "the company",
       type: "relationship",
+      relationship_type: "belongs_to",
       model: "organization",
     },
     {
       id: "friend",
       name: "the friend",
       type: "relationship",
+      relationship_type: "belongs_to",
       model: "user",
     },
   ],
+  unique_identifier: "id",
+  primary_identifiers: ["last_name", "first_name"],
   search: {
     filters: [
       "first_name",
