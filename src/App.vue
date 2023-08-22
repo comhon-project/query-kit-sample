@@ -18,6 +18,7 @@ const columns = ref([
   "age",
   "gender",
   "married",
+  "favorite_fruits",
   "birth.birth_date",
   "birth.birth_day",
   "birth.birth_hour",
@@ -235,6 +236,13 @@ let requester = {
           case "age":
             element[name] = Math.floor(Math.random() * 100);
             break;
+          case "favorite_fruits":
+            const count = Math.floor(Math.random() * 10);
+            element[name] = [];
+            for (let index = 0; index < count; index++) {
+              element[name].push(Math.floor(Math.random() * 3 + 1));
+            }
+            break;
           default:
             element[name] = name + Math.random().toString(36);
             break;
@@ -294,7 +302,7 @@ let requester = {
           scope: null,
           group: ['or'],
           relationship_condition: null,
-          choice: ['in', 'not_in'],
+          choice: null,
         }"
         :allowReset="true"
         user-timezone="Europe/Paris"
@@ -313,6 +321,7 @@ let requester = {
           user: [
             {
               id: 'quick_search',
+              name: 'quick search user',
               translation: (localeValue) =>
                 localeValue == 'fr' ? 'recherche rapide' : 'quick search user',
               type: 'string',

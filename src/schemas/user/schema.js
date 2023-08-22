@@ -61,6 +61,15 @@ export default {
       type: "choice",
     },
     {
+      id: "favorite_fruits",
+      name: "favorite fruits",
+      type: "array",
+      children: {
+        type: "string",
+        enum: ["1", "2", "3"],
+      },
+    },
+    {
       id: "company",
       name: "the company",
       type: "relationship",
@@ -90,6 +99,7 @@ export default {
       "company",
       "friend",
       "country",
+      "favorite_fruits",
     ],
     sort: ["first_name", "company"],
     scopes: [

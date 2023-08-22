@@ -55,6 +55,13 @@ createApp(App)
     defaultLocale: "en",
     fallbackLocale: "fr",
     renderHtml: true,
+    allowedOperators: {
+      condition: {
+        choice: ["like", "not_in"],
+        datetime: ["=", "not_in"],
+        array: ["=", "in"],
+      },
+    },
     requester: {
       request: (query) => {
         console.log("main-requester");
