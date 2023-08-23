@@ -1,20 +1,22 @@
 <script setup>
-import { ref, provide, toRaw } from "vue";
+import { ref } from "vue";
 import CellFirstName from "./components/CellFirstName.vue";
 import { locale, Search } from "@query-kit/vue";
 
-const theme = provide("theme", {
-  color_primary: "#7457c4",
-  color_secondary: "#c45757",
-});
 const model = ref("user");
 const columns = ref([
   {
     id: "first_name",
-    label: "override first name",
+    label: "overrided first name",
     component: CellFirstName,
   },
-  "last_name",
+  {
+    id: "last_name",
+    label: (localeValue) =>
+      localeValue == "fr"
+        ? "nom surchargé localisé"
+        : "name overrided localized",
+  },
   "age",
   "gender",
   "married",
@@ -328,7 +330,6 @@ let requester = {
           user: [
             {
               id: 'quick_search',
-              name: 'quick search user',
               translation: (localeValue) =>
                 localeValue == 'fr' ? 'recherche rapide' : 'quick search user',
               type: 'string',
