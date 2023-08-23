@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import CellFirstName from "./components/CellFirstName.vue";
-import { locale, Search } from "@query-kit/vue";
+import { locale } from "@query-kit/vue";
 
 const model = ref("user");
 const columns = ref([
