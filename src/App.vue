@@ -176,7 +176,13 @@ function printRow(object) {
 
 async function completeCollection(collection) {
   for (const row of collection) {
-    row["company.description"] += ' <span style="color: blue">lalala</span>';
+    if (row["company.description"]) {
+      // flattened
+      row["company.description"] += ' <span style="color: blue">lalala</span>';
+    } else if (row.company) {
+      // not flattened
+      row.company.description += ' <span style="color: blue">lalala</span>';
+    }
     row["first_name"] += " hehe";
   }
 }
@@ -259,6 +265,7 @@ let requester = {
       }, 1000);
     });
   },
+  flattened: true,
 };
 
 // TODO export dist files and update main file in package.json

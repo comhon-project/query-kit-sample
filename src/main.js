@@ -73,31 +73,54 @@ createApp(App)
             : query.limit;
         const collection = [];
         for (let index = 0; index < limit; index++) {
-          const element = {};
+          const rowObject = {};
           for (const name of query.properties) {
+            let container = rowObject;
+            let property = name;
+            if (name.includes(".")) {
+              const list = name.split(".");
+              property = list.pop();
+              for (const key of list) {
+                if (!container[key]) {
+                  container[key] = {};
+                }
+                container = container[key];
+              }
+            }
             switch (name) {
               case "birth.birth_date":
-                element[name] = "2023-01-03T20:45:04Z";
+                container[property] = "2023-01-03T20:45:04Z";
                 break;
               case "birth.birth_day":
-                element[name] = "2023-01-03";
+                container[property] = "2023-01-03";
                 break;
               case "birth.birth_hour":
-                element[name] = "20:45:04";
+                container[property] = "20:45:04";
                 break;
               case "gender":
-                element[name] = Math.random() > 0.5 ? "male" : "female";
+                container[property] = Math.random() > 0.5 ? "male" : "female";
                 break;
               case "married":
-                element[name] = Math.random() > 0.5 ? true : false;
+                container[property] = Math.random() > 0.5 ? true : false;
+                break;
+              case "age":
+                container[property] = Math.floor(Math.random() * 100);
+                break;
+              case "favorite_fruits":
+                const count = Math.floor(Math.random() * 10);
+                container[property] = [];
+                for (let index = 0; index < count; index++) {
+                  container[property].push(Math.floor(Math.random() * 3 + 1));
+                }
                 break;
               default:
-                element[name] = Math.random().toString(36);
+                container[property] = name + Math.random().toString(36);
                 break;
             }
           }
-          collection.push(element);
+          collection.push(rowObject);
         }
+        console.log(structuredClone(collection));
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve({
@@ -107,6 +130,7 @@ createApp(App)
           }, 1000);
         });
       },
+      flattened: false,
     },
   })
   .mount("#app");
