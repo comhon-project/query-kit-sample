@@ -13,7 +13,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@query-kit/themes": "file:../query-kit/packages/themes",
     "@query-kit/vue": "file:../query-kit/packages/vue",
-    "vue": "^3.2.45"
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
