@@ -76,6 +76,13 @@ const group = {
     },
     {
       type: "condition",
+      property: "married",
+      value: true,
+      operator: "=",
+      editable: false,
+    },
+    {
+      type: "condition",
       property: "gender",
       operator: "<>",
       value: "female",
@@ -95,6 +102,8 @@ const group = {
       type: "condition",
       property: "country",
       operator: "in",
+      value: ["3"],
+      editable: false,
     },
     {
       type: "group",
@@ -155,6 +164,7 @@ const group = {
                   type: "condition",
                   property: "first_name",
                   operator: "=",
+                  value: "plop",
                 },
                 {
                   type: "condition",
@@ -315,7 +325,11 @@ let requester = {
         }"
         :allowReset="true"
         user-timezone="Europe/Paris"
-        :display-operator="true"
+        :display-operator="{
+          group: true,
+          condition: true,
+          relationship_condition: true,
+        }"
         :deferred="500"
         :manually="false"
         :direct-query="true"

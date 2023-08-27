@@ -18,6 +18,7 @@ import { plugin } from "@query-kit/vue";
 import { schemaLoader, schemaLocaleLoader } from "./core/SchemaLoader";
 import CellInteger from "./components/CellInteger.vue";
 import CellDate from "./components/CellDate.vue";
+import CountryInput from "./components/CountryInput.vue";
 
 library.add([
   faPlus,
@@ -30,12 +31,13 @@ library.add([
 
 createApp(App)
   .component("Icon", FontAwesomeIcon)
+  .component("CountryInput", CountryInput)
   .use(plugin, {
     schemaLoader: schemaLoader,
     schemaLocaleLoader: schemaLocaleLoader,
     classes: {},
     inputs: {
-      choice: { component: "number", unique: true },
+      choice: { component: "CountryInput", unique: true },
     },
     cellRenderers: {
       integer: CellInteger,
