@@ -8,7 +8,7 @@ const columns = ref([
   {
     id: "first_name",
     label: "overrided first name",
-    component: CellFirstName,
+    cellComponent: CellFirstName,
   },
   {
     id: "last_name",
@@ -31,10 +31,11 @@ const columns = ref([
   },
   {
     id: "company.description",
-    onCellClick: (object, property, event) => {
+    onCellClick: (value, row, property, event) => {
       event.stopPropagation();
       console.log("cell click", property);
-      console.log(object);
+      console.log(value);
+      console.log(row);
     },
   },
   "company.address",

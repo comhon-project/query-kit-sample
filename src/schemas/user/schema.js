@@ -86,6 +86,7 @@ export default {
   ],
   unique_identifier: "id",
   primary_identifiers: ["last_name", "first_name"],
+  natural_order: ["last_name", "first_name"],
   search: {
     filters: [
       "first_name",
@@ -101,7 +102,7 @@ export default {
       "country",
       "favorite_fruits",
     ],
-    sort: ["first_name", "company"],
+    sort: ["first_name", "company", "friend"],
     scopes: [
       "scope_string_definition",
       {
