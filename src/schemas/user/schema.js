@@ -86,7 +86,7 @@ export default {
   ],
   unique_identifier: "id",
   primary_identifiers: ["last_name", "first_name"],
-  natural_order: ["last_name", "first_name"],
+  natural_sort: ["last_name", "first_name"],
   search: {
     filters: [
       "first_name",

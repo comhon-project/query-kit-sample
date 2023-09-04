@@ -59,9 +59,33 @@ const group = {
     {
       type: "condition",
       property: "first_name",
-      value: "%azeaze%",
+      value: "azeaze",
       operator: "like",
       removable: false,
+    },
+    {
+      type: "condition",
+      property: "first_name",
+      value: "end",
+      operator: "ends_with",
+    },
+    {
+      type: "condition",
+      property: "first_name",
+      value: "not_end",
+      operator: "doesnt_end_with",
+    },
+    {
+      type: "condition",
+      property: "first_name",
+      value: "begin",
+      operator: "begins_with",
+    },
+    {
+      type: "condition",
+      property: "first_name",
+      value: "not_begin",
+      operator: "doesnt_begin_with",
     },
     {
       type: "condition",
