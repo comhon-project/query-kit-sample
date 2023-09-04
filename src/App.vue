@@ -229,6 +229,16 @@ async function exportResults(newFilter) {
   console.log(newFilter);
 }
 
+function handleComputedFilters(params) {
+  console.log("computed");
+  console.log(params);
+}
+
+function handleUpdatedFilters(params) {
+  console.log("updated");
+  console.log(params);
+}
+
 function computeQuickSearch(value, operator) {
   return {
     type: "group",
@@ -365,6 +375,8 @@ let requester = {
         :allowed-collection-types="['infinite', 'pagination']"
         :display-count="true"
         @export="exportResults"
+        @updated="handleUpdatedFilters"
+        @computed="handleComputedFilters"
         :computed-scopes="{
           user: [
             {
