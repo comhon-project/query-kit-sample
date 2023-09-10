@@ -52,6 +52,13 @@ const group = {
     {
       type: "condition",
       property: "last_name",
+      operator: "in",
+      value: ["one", undefined],
+      editable: false,
+    },
+    {
+      type: "condition",
+      property: "last_name",
       operator: "=",
       value: "one",
       editable: false,
@@ -139,6 +146,7 @@ const group = {
           type: "condition",
           property: "first_name",
           operator: "=",
+          value: "invisible",
           visible: false,
         },
         {
@@ -353,10 +361,11 @@ let requester = {
         :allowed-properties="{ user: null }"
         :allowed-scopes="{ user: null }"
         :allowed-operators="{
-          scope: null,
           group: ['or'],
           relationship_condition: null,
-          choice: null,
+          condition: {
+            integer: ['not_null', 'in'],
+          },
         }"
         :allowReset="true"
         user-timezone="Europe/Paris"

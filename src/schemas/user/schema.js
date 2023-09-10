@@ -88,7 +88,7 @@ export default {
   primary_identifiers: ["last_name", "first_name"],
   natural_sort: ["last_name", "first_name"],
   search: {
-    filters: [
+    properties: [
       "first_name",
       "age",
       "weight",
