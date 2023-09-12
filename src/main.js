@@ -9,6 +9,7 @@ import {
   faForward,
   faArrowDown,
   faChevronDown,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -27,6 +28,7 @@ library.add([
   faBackward,
   faForward,
   faChevronDown,
+  faCheck,
 ]);
 
 createApp(App)
@@ -43,18 +45,9 @@ createApp(App)
       integer: CellInteger,
     },
     icons: {
-      close: { class: "qkit-icon qkit-icon-cross", component: "i" },
-      delete: { class: "qkit-icon qkit-icon-cross", component: "i" },
-      minus: { class: "qkit-icon qkit-icon-minus", component: "i" },
-      add: { class: "qkit-icon qkit-icon-plus", component: "i" },
-      add_value: { class: "qkit-icon qkit-icon-plus", component: "i" },
-      //add_value: { icon: "fa-solid fa-plus", fade: "" },
-      add_filter: { icon: "fa-solid fa-plus" },
-      collapse: { class: "qkit-icon qkit-icon-arrow-down", component: "i" },
-      //collapse: "fa-solid fa-chevron-down",
+      confirm: { icon: "fa-solid fa-check", fade: "" },
       reset: "fa-solid fa-rotate-left",
-      previous: "fa-solid fa-backward",
-      next: "fa-solid fa-forward",
+      next: null,
     },
     iconComponent: "Icon",
     iconPropName: "icon",

@@ -277,7 +277,7 @@ let requester = {
   request: (query) => {
     console.log("prop-requester");
     console.log(query);
-    const lastCompleteBulk = 3;
+    const lastCompleteBulk = 10;
     const limit =
       query.offset > lastCompleteBulk * query.limit
         ? query.limit - 1
