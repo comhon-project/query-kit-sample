@@ -12,6 +12,7 @@ export default {
   company: "the company",
   friend: "the friend",
   favorite_fruits: "favorite fruits",
+  cars: "cars",
 
   scope_string_definition: "scope string definition",
   scope: "scope without value",

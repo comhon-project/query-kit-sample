@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { markRaw, ref, toRaw, watch } from "vue";
 import CellFirstName from "./components/CellFirstName.vue";
 import { locale } from "@query-kit/vue";
 
@@ -8,7 +8,7 @@ const columns = ref([
   {
     id: "first_name",
     label: "overrided first name",
-    cellComponent: CellFirstName,
+    renderer: markRaw(CellFirstName),
   },
   {
     id: "last_name",
@@ -39,6 +39,12 @@ const columns = ref([
     },
   },
   "company.address",
+  {
+    label: "no property",
+    renderer: (cellValue, rowValue) => {
+      return rowValue["first_name"] + " func";
+    },
+  },
 ]);
 const group = {
   type: "group",
@@ -228,7 +234,9 @@ async function completeCollection(collection) {
       // not flattened
       row.company.description += ' <span style="color: blue">lalala</span>';
     }
-    row["first_name"] += " hehe";
+    if (row["first_name"]) {
+      row["first_name"] += " hehe";
+    }
   }
 }
 
@@ -278,7 +286,9 @@ let requester = {
     for (let index = 0; index < limit; index++) {
       const element = {};
       for (const name of query.properties) {
-        switch (name) {
+        let leafProperty = name.replaceAll("friend.", "");
+        leafProperty = leafProperty.replaceAll("company.", "");
+        switch (leafProperty) {
           case "birth.birth_date":
             element[name] = "2023-01-03T20:45:04Z";
             break;
@@ -323,11 +333,12 @@ let requester = {
   flattened: true,
 };
 
+watch(columns, () => {
+  console.log("------ app watch columns-------");
+});
+
 // TODO export dist files and update main file in package.json
 // add tests
-// manage property name with dot in collection
-// add possibility yo customize collection columns
-// publish on npm and retrieve from npm not from locale.
 </script>
 
 <template>
@@ -383,6 +394,7 @@ let requester = {
         :post-request="completeCollection"
         :allowed-collection-types="['infinite', 'pagination']"
         :display-count="true"
+        :edit-columns="true"
         @export="exportResults"
         @updated="handleUpdatedFilters"
         @computed="handleComputedFilters"

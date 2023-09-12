@@ -4,6 +4,14 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  property: {
+    type: Object,
+    required: true,
+  },
+  type: {
+    type: Object,
+    required: true,
+  },
   value: {
     required: true,
   },
@@ -22,4 +30,4 @@ const props = defineProps({
 });
 </script>
 
-<template>{{ value }} {{ column.property.type }}</template>
+<template>{{ value }} {{ property.type }} {{ type.type }}</template>

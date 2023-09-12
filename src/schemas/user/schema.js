@@ -83,6 +83,13 @@ export default {
       relationship_type: "belongs_to",
       model: "user",
     },
+    {
+      id: "cars",
+      name: "cars",
+      type: "relationship",
+      relationship_type: "has_many",
+      model: "car",
+    },
   ],
   unique_identifier: "id",
   primary_identifiers: ["last_name", "first_name"],
@@ -101,6 +108,7 @@ export default {
       "friend",
       "country",
       "favorite_fruits",
+      "cars",
     ],
     sort: ["first_name", "company", "friend"],
     scopes: [

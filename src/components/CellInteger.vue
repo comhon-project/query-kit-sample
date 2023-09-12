@@ -4,6 +4,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  property: {
+    type: Object,
+    required: true,
+  },
   type: {
     type: Object,
     required: true,
@@ -26,4 +30,4 @@ const props = defineProps({
 });
 </script>
 
-<template>{{ value }} int</template>
+<template>{{ value }} {{ property.type }} {{ type.type }}</template>

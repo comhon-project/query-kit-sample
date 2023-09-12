@@ -28,11 +28,18 @@ export default {
       relationship_type: "has_many",
       model: "user",
     },
+    {
+      id: "offices",
+      name: "offices",
+      type: "relationship",
+      relationship_type: "has_many",
+      model: "office",
+    },
   ],
   unique_identifier: "id",
   primary_identifiers: ["brand_name"],
   search: {
-    properties: ["address", "brand_name", "contacts", "description"],
+    properties: ["address", "brand_name", "contacts", "description", "offices"],
     sort: ["brand_name"],
   },
 };

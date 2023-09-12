@@ -3,4 +3,5 @@ export default {
   description: "description",
   address: "the address",
   contacts: "the contacts",
+  offices: "offices",
 };

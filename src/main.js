@@ -45,6 +45,8 @@ createApp(App)
     icons: {
       close: { class: "qkit-icon qkit-icon-cross", component: "i" },
       delete: { class: "qkit-icon qkit-icon-cross", component: "i" },
+      minus: { class: "qkit-icon qkit-icon-minus", component: "i" },
+      add: { class: "qkit-icon qkit-icon-plus", component: "i" },
       add_value: { class: "qkit-icon qkit-icon-plus", component: "i" },
       //add_value: { icon: "fa-solid fa-plus", fade: "" },
       add_filter: { icon: "fa-solid fa-plus" },
