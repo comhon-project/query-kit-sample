@@ -41,8 +41,13 @@ createApp(App)
     inputs: {
       choice: { component: "CountryInput", unique: true },
     },
-    cellRenderers: {
+    cellTypeRenderers: {
       integer: CellInteger,
+    },
+    cellPropertyRenderers: {
+      user: {
+        weight: (value) => value + " kg",
+      },
     },
     icons: {
       confirm: { icon: "fa-solid fa-check", fade: "" },

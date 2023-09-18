@@ -5,18 +5,9 @@ import { locale } from "@query-kit/vue";
 
 const model = ref("user");
 const columns = ref([
-  {
-    id: "first_name",
-    label: "overrided first name",
-    renderer: markRaw(CellFirstName),
-  },
-  {
-    id: "last_name",
-    label: (localeValue) =>
-      localeValue == "fr"
-        ? "nom surchargé localisé"
-        : "name overrided localized",
-  },
+  "first_name",
+  "last_name",
+  "weight",
   "age",
   "gender",
   "married",
@@ -25,12 +16,29 @@ const columns = ref([
   "birth.birth_day",
   "birth.birth_hour",
   "friend",
-  {
+  "company",
+  "company.description",
+  "company.address",
+  "no_property",
+  /*{
     id: "company",
     order: "desc",
   },
-  {
-    id: "company.description",
+  ,*/
+]);
+
+const customColumns = ref({
+  first_name: {
+    label: "overrided first name",
+    renderer: markRaw(CellFirstName),
+  },
+  last_name: {
+    label: (localeValue) =>
+      localeValue == "fr"
+        ? "nom surchargé localisé"
+        : "name overrided localized",
+  },
+  "company.description": {
     onCellClick: (value, row, property, event) => {
       event.stopPropagation();
       console.log("cell click", property);
@@ -38,14 +46,22 @@ const columns = ref([
       console.log(row);
     },
   },
-  "company.address",
-  {
-    label: "no property",
+  no_property: {
+    label: (localeValue) =>
+      localeValue == "fr" ? "non propriété" : "no property",
+    open: true,
     renderer: (cellValue, rowValue) => {
       return rowValue["first_name"] + " func";
     },
   },
-]);
+  no_property_two: {
+    label: "no property two",
+    open: true,
+    renderer: (cellValue, rowValue) => {
+      return rowValue["age"] + " ans";
+    },
+  },
+});
 const group = {
   type: "group",
   operator: "and",
@@ -304,6 +320,7 @@ let requester = {
           case "married":
             element[name] = Math.random() > 0.5 ? true : false;
             break;
+          case "weight":
           case "age":
             element[name] = Math.floor(Math.random() * 100);
             break;
@@ -390,11 +407,12 @@ watch(columns, () => {
         :direct-query="true"
         :limit="20"
         :quick-sort="true"
-        @row-click="printRow"
         :post-request="completeCollection"
         :allowed-collection-types="['infinite', 'pagination']"
         :display-count="true"
         :edit-columns="true"
+        :custom-columns="customColumns"
+        @row-click="printRow"
         @export="exportResults"
         @updated="handleUpdatedFilters"
         @computed="handleComputedFilters"
