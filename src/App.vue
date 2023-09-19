@@ -20,11 +20,6 @@ const columns = ref([
   "company.description",
   "company.address",
   "no_property",
-  /*{
-    id: "company",
-    order: "desc",
-  },
-  ,*/
 ]);
 
 const customColumns = ref({
@@ -57,11 +52,15 @@ const customColumns = ref({
   no_property_two: {
     label: "no property two",
     open: true,
+    order: ["age", "weight"],
     renderer: (cellValue, rowValue) => {
       return rowValue["age"] + " ans";
     },
   },
 });
+
+const orderBy = ref(["first_name"]);
+
 const group = {
   type: "group",
   operator: "and",
@@ -412,6 +411,7 @@ watch(columns, () => {
         :display-count="true"
         :edit-columns="true"
         :custom-columns="customColumns"
+        v-model:order-by="orderBy"
         @row-click="printRow"
         @export="exportResults"
         @updated="handleUpdatedFilters"
