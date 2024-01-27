@@ -13,17 +13,17 @@ export default {
     },
     {
       id: "address",
-      name: "the address",
+      name: "address",
       type: "string",
     },
     {
       id: "description",
-      name: "the description",
+      name: "description",
       type: "html",
     },
     {
       id: "contacts",
-      name: "the contacts",
+      name: "contacts",
       type: "relationship",
       relationship_type: "has_many",
       model: "user",

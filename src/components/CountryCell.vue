@@ -1,4 +1,6 @@
 <script setup>
+import { locale } from "@query-kit/vue";
+
 const props = defineProps({
   columnId: {
     type: String,
@@ -28,23 +30,17 @@ const props = defineProps({
     required: true,
   },
 });
-
-function cellAlert(e) {
-  e.stopPropagation();
-  alert(
-    "|| " +
-      props.rowValue["company.id"] + // flattened
-      " - " +
-      props.rowValue["company.brand_name"] + // flattened
-      " ||\n|| " +
-      props.rowValue?.company?.id + // not flattened
-      " - " +
-      props.rowValue?.company?.brand_name + // not flattened
-      " || "
-  );
-}
 </script>
 
 <template>
-  {{ value }}<button style="color: blue" @click="cellAlert">button</button>
+  <p v-if="value == 1">
+    {{ locale == "fr" ? "angleterre" : "england" }}
+  </p>
+  <p v-else-if="value == 2">
+    {{ locale == "fr" ? "france" : "france" }}
+  </p>
+  <p v-else-if="value == 3">
+    {{ locale == "fr" ? "allemagne" : "deutshland" }}
+  </p>
+  <p v-else>{{ value }}</p>
 </template>

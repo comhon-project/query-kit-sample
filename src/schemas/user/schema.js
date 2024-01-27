@@ -18,12 +18,12 @@ export default {
     },
     {
       id: "age",
-      name: "the age",
+      name: "age",
       type: "integer",
     },
     {
       id: "weight",
-      name: "the weight",
+      name: "weight",
       type: "float",
     },
     {
@@ -33,7 +33,7 @@ export default {
     },
     {
       id: "gender",
-      name: "the gender",
+      name: "gender",
       type: "string",
       enum: {
         male: "Mr.",
@@ -57,8 +57,8 @@ export default {
     },
     {
       id: "country",
-      name: "the country",
-      type: "choice",
+      name: "country",
+      type: "country",
     },
     {
       id: "favorite_fruits",
@@ -71,14 +71,14 @@ export default {
     },
     {
       id: "company",
-      name: "the company",
+      name: "company",
       type: "relationship",
       relationship_type: "belongs_to",
       model: "organization",
     },
     {
       id: "friend",
-      name: "the friend",
+      name: "friend",
       type: "relationship",
       relationship_type: "belongs_to",
       model: "user",

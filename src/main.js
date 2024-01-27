@@ -1,74 +1,41 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faPlus,
-  faXmark,
-  faRotateLeft,
-  faBackward,
-  faForward,
-  faArrowDown,
-  faChevronDown,
-  faCheck,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faker } from "@faker-js/faker";
 
 import "@query-kit/themes/default";
 
 import { plugin } from "@query-kit/vue";
 import { schemaLoader, schemaLocaleLoader } from "./core/SchemaLoader";
-import CellInteger from "./components/CellInteger.vue";
-import CellDate from "./components/CellDate.vue";
 import CountryInput from "./components/CountryInput.vue";
-
-library.add([
-  faPlus,
-  faXmark,
-  faRotateLeft,
-  faBackward,
-  faForward,
-  faChevronDown,
-  faCheck,
-]);
+import CountryCell from "./components/CountryCell.vue";
 
 createApp(App)
-  .component("Icon", FontAwesomeIcon)
   .component("CountryInput", CountryInput)
+  .component("CountryCell", CountryCell)
   .use(plugin, {
     schemaLoader: schemaLoader,
     schemaLocaleLoader: schemaLocaleLoader,
     classes: {},
     inputs: {
-      choice: { component: "CountryInput", unique: true },
-    },
-    cellTypeRenderers: {
-      integer: CellInteger,
+      country: { component: "CountryInput", unique: true },
     },
     cellPropertyRenderers: {
       user: {
         weight: (value) => value + " kg",
+        age: (value, row, col, locale) =>
+          value + (locale == "fr" ? " ans" : " years"),
       },
     },
-    icons: {
-      confirm: { icon: "fa-solid fa-check", fade: "" },
-      reset: "fa-solid fa-rotate-left",
-      next: null,
+    cellTypeRenderers: {
+      country: "CountryCell",
     },
-    iconComponent: "Icon",
-    iconPropName: "icon",
+    icons: {},
     defaultLocale: "en",
     fallbackLocale: "fr",
     renderHtml: true,
-    allowedOperators: {
-      condition: {
-        choice: ["like", "not_in"],
-        datetime: ["=", "not_in"],
-        array: ["=", "in"],
-      },
-    },
+    allowedOperators: {},
     requester: {
       request: (query) => {
-        console.log("main-requester");
         console.log(query);
         const lastCompleteBulk = 3;
         const limit =
@@ -92,6 +59,12 @@ createApp(App)
               }
             }
             switch (name) {
+              case "first_name":
+                container[property] = faker.person.firstName();
+                break;
+              case "last_name":
+                container[property] = faker.person.lastName();
+                break;
               case "birth.birth_date":
                 container[property] = "2023-01-03T20:45:04Z";
                 break;
@@ -108,7 +81,11 @@ createApp(App)
                 container[property] = Math.random() > 0.5 ? true : false;
                 break;
               case "age":
+              case "weight":
                 container[property] = Math.floor(Math.random() * 100);
+                break;
+              case "country":
+                container[property] = Math.floor(Math.random() * 3 + 1);
                 break;
               case "favorite_fruits":
                 const count = Math.floor(Math.random() * 10);
@@ -116,6 +93,18 @@ createApp(App)
                 for (let index = 0; index < count; index++) {
                   container[property].push(Math.floor(Math.random() * 3 + 1));
                 }
+                break;
+              case "company.brand_name":
+                container[property] = faker.company.name();
+                break;
+              case "company.address":
+                container[property] = faker.location.streetAddress();
+                break;
+              case "company.description":
+                container[property] = faker.company.catchPhrase();
+                break;
+              case "company.id":
+                container[property] = Math.floor(Math.random() * 999999999);
                 break;
               default:
                 container[property] = name + Math.random().toString(36);

@@ -8,14 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.3.0",
-    "@fortawesome/free-solid-svg-icons": "^6.3.0",
-    "@fortawesome/vue-fontawesome": "^3.0.3",
-    "@query-kit/themes": "file:../query-kit/packages/themes",
-    "@query-kit/vue": "file:../query-kit/packages/vue",
+    "@query-kit/themes": "^0.8",
+    "@query-kit/vue": "^0.8",
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "vite": "^4.0.0"
   }

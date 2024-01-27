@@ -1,6 +1,5 @@
 <script setup>
-import { markRaw, ref, toRaw, watch } from "vue";
-import CellFirstName from "./components/CellFirstName.vue";
+import { ref, watch } from "vue";
 import { locale } from "@query-kit/vue";
 
 const model = ref("user");
@@ -8,56 +7,12 @@ const columns = ref([
   "first_name",
   "last_name",
   "weight",
-  "age",
   "gender",
-  "married",
-  "favorite_fruits",
   "birth.birth_date",
-  "birth.birth_day",
-  "birth.birth_hour",
-  "friend",
   "company",
-  "company.description",
-  "company.address",
-  "no_property",
 ]);
 
-const customColumns = ref({
-  first_name: {
-    label: "overrided first name",
-    renderer: markRaw(CellFirstName),
-  },
-  last_name: {
-    label: (localeValue) =>
-      localeValue == "fr"
-        ? "nom surchargé localisé"
-        : "name overrided localized",
-  },
-  "company.description": {
-    onCellClick: (value, row, property, event) => {
-      event.stopPropagation();
-      console.log("cell click", property);
-      console.log(value);
-      console.log(row);
-    },
-  },
-  no_property: {
-    label: (localeValue) =>
-      localeValue == "fr" ? "non propriété" : "no property",
-    open: true,
-    renderer: (cellValue, rowValue) => {
-      return rowValue["first_name"] + " func";
-    },
-  },
-  no_property_two: {
-    label: "no property two",
-    open: true,
-    order: ["age", "weight"],
-    renderer: (cellValue, rowValue) => {
-      return rowValue["age"] + " ans";
-    },
-  },
-});
+const customColumns = ref({});
 
 const orderBy = ref(["first_name"]);
 
@@ -67,169 +22,35 @@ const group = {
   filters: [
     {
       type: "condition",
-      property: "last_name",
-      operator: "in",
-    },
-    {
-      type: "condition",
-      property: "last_name",
-      operator: "in",
-      value: ["one", undefined],
-      editable: false,
-    },
-    {
-      type: "condition",
-      property: "last_name",
-      operator: "=",
-      value: "one",
-      editable: false,
-    },
-    {
-      type: "condition",
       property: "first_name",
-      value: "azeaze",
+      value: "John",
       operator: "like",
       removable: false,
     },
     {
       type: "condition",
-      property: "first_name",
-      value: "end",
-      operator: "ends_with",
-    },
-    {
-      type: "condition",
-      property: "first_name",
-      value: "not_end",
-      operator: "doesnt_end_with",
-    },
-    {
-      type: "condition",
-      property: "first_name",
-      value: "begin",
-      operator: "begins_with",
-    },
-    {
-      type: "condition",
-      property: "first_name",
-      value: "not_begin",
-      operator: "doesnt_begin_with",
+      property: "last_name",
+      operator: "=",
+      value: "Smith",
+      editable: false,
     },
     {
       type: "condition",
       property: "birth.birth_date",
-      value: "2022-01-07T03:06:06.000Z",
+      value: "2002-01-07T03:06:06.000Z",
       operator: "=",
-    },
-    {
-      type: "condition",
-      property: "age",
-      value: "20",
-      operator: "<",
     },
     {
       type: "condition",
       property: "married",
       value: true,
       operator: "=",
-      editable: false,
     },
     {
       type: "condition",
       property: "gender",
-      operator: "<>",
-      value: "female",
-    },
-    {
-      type: "scope",
-      id: "enum_scope",
-      value: "two",
-    },
-    {
-      type: "scope",
-      id: "quick_search",
       operator: "=",
-      value: "twozzzz",
-    },
-    {
-      type: "condition",
-      property: "country",
-      operator: "in",
-      value: ["3"],
-      editable: false,
-    },
-    {
-      type: "group",
-      operator: "or",
-      editable: false,
-      filters: [
-        {
-          type: "condition",
-          property: "first_name",
-          operator: "=",
-          value: "invisible",
-          visible: false,
-        },
-        {
-          type: "relationship_condition",
-          operator: "has",
-          property: "company",
-          filter: {
-            type: "condition",
-            property: "address",
-            operator: "=",
-          },
-        },
-        {
-          type: "condition",
-          property: "first_name",
-          value: "aaaaaaaaaaa",
-          operator: "=",
-          editable: false,
-        },
-        {
-          type: "relationship_condition",
-          operator: "has",
-          property: "company",
-          filter: {
-            type: "relationship_condition",
-            operator: "has_not",
-            property: "contacts",
-            filter: {
-              type: "group",
-              operator: "or",
-              filters: [
-                {
-                  type: "condition",
-                  property: "first_name",
-                  operator: "=",
-                },
-                {
-                  type: "condition",
-                  property: "first_name",
-                  operator: "=",
-                },
-                {
-                  type: "condition",
-                  property: "first_name",
-                  operator: "=",
-                },
-                {
-                  type: "condition",
-                  property: "first_name",
-                  operator: "=",
-                  value: "plop",
-                },
-                {
-                  type: "condition",
-                  property: "first_name",
-                  operator: "=",
-                },
-              ],
-            },
-          },
-        },
-      ],
+      value: "female",
     },
   ],
 };
@@ -238,21 +59,6 @@ const filter = ref(group);
 function printRow(object) {
   console.log("row click");
   console.log(object);
-}
-
-async function completeCollection(collection) {
-  for (const row of collection) {
-    if (row["company.description"]) {
-      // flattened
-      row["company.description"] += ' <span style="color: blue">lalala</span>';
-    } else if (row.company) {
-      // not flattened
-      row.company.description += ' <span style="color: blue">lalala</span>';
-    }
-    if (row["first_name"]) {
-      row["first_name"] += " hehe";
-    }
-  }
 }
 
 async function exportResults(newFilter) {
@@ -288,85 +94,11 @@ function computeQuickSearch(value, operator) {
     ],
   };
 }
-let requester = {
-  request: (query) => {
-    console.log("prop-requester");
-    console.log(query);
-    const lastCompleteBulk = 10;
-    const limit =
-      query.offset > lastCompleteBulk * query.limit
-        ? query.limit - 1
-        : query.limit;
-    const collection = [];
-    for (let index = 0; index < limit; index++) {
-      const element = {};
-      for (const name of query.properties) {
-        let leafProperty = name.replaceAll("friend.", "");
-        leafProperty = leafProperty.replaceAll("company.", "");
-        switch (leafProperty) {
-          case "birth.birth_date":
-            element[name] = "2023-01-03T20:45:04Z";
-            break;
-          case "birth.birth_day":
-            element[name] = "2023-01-03";
-            break;
-          case "birth.birth_hour":
-            element[name] = "20:45:04";
-            break;
-          case "gender":
-            element[name] = Math.random() > 0.5 ? "male" : "female";
-            break;
-          case "married":
-            element[name] = Math.random() > 0.5 ? true : false;
-            break;
-          case "weight":
-          case "age":
-            element[name] = Math.floor(Math.random() * 100);
-            break;
-          case "favorite_fruits":
-            const count = Math.floor(Math.random() * 10);
-            element[name] = [];
-            for (let index = 0; index < count; index++) {
-              element[name].push(Math.floor(Math.random() * 3 + 1));
-            }
-            break;
-          default:
-            element[name] = name + Math.random().toString(36);
-            break;
-        }
-      }
-      collection.push(element);
-    }
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          count: lastCompleteBulk * query.limit + (query.limit - 1),
-          collection: collection,
-        });
-      }, 1000);
-    });
-  },
-  flattened: true,
-};
-
-watch(columns, () => {
-  console.log("------ app watch columns-------");
-});
-
-// TODO export dist files and update main file in package.json
-// add tests
 </script>
 
 <template>
   <div class="root-app">
-    <div
-      style="
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-        justify-content: end;
-      "
-    >
+    <div style="display: flex; gap: 0.5rem; justify-content: end">
       <button @click="() => (locale = 'fr')" class="qkit-btn qkit-btn-primary">
         fr
       </button>
@@ -380,20 +112,22 @@ watch(columns, () => {
         de
       </button>
     </div>
-    <div style="height: 90vh">
+    <div style="display: flex; justify-content: end; text-align: right">
+      <p style="font-size: small">
+        Disclaimer! For this sample, the data is generated randomly and filters
+        are <br />
+        not really applied, so it's normal if the results don't match your
+        filters.
+      </p>
+    </div>
+    <div style="height: 85vh">
       <Search
         :model="model"
         :columns="columns"
         :filter="filter"
-        :allowed-properties="{ user: null }"
-        :allowed-scopes="{ user: null }"
-        :allowed-operators="{
-          group: ['or'],
-          relationship_condition: null,
-          condition: {
-            integer: ['not_null', 'in'],
-          },
-        }"
+        :allowed-properties="{}"
+        :allowed-scopes="{}"
+        :allowed-operators="{}"
         :allowReset="true"
         user-timezone="Europe/Paris"
         :display-operator="{
@@ -406,7 +140,6 @@ watch(columns, () => {
         :direct-query="true"
         :limit="20"
         :quick-sort="true"
-        :post-request="completeCollection"
         :allowed-collection-types="['infinite', 'pagination']"
         :display-count="true"
         :edit-columns="true"
@@ -429,7 +162,6 @@ watch(columns, () => {
           ],
           organization: [{ id: 'quick_search', name: 'quick search company' }],
         }"
-        :requester="requester"
       >
         <template #loadings="{ requesting }"
           ><div v-show="requesting">loading...</div></template
@@ -444,7 +176,7 @@ watch(columns, () => {
   .root-app {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 85%;
   }
 }
 </style>
